@@ -235,18 +235,18 @@ Section "Start Menu/Desktop Shortcuts" Section8
 	SetShellVarContext current
 	${If} ${SectionIsSelected} ${Section1}
 		CreateDirectory '$SMPROGRAMS\The Sims Stories Starter Pack\'
-		CreateShortCut '$SMPROGRAMS\The Sims Stories Starter Pack\The Sims Life Stories.lnk' '$INSTDIR\LS\TSBin\SimsLS.exe' "" '$INSTDIR\LS\TSBin\SimsLS.exe' 0
-		CreateShortCut '$Desktop\The Sims Life Stories.lnk' '$INSTDIR\LS\TSBin\SimsLS.exe' "" '$INSTDIR\LS\TSBin\SimsLS.exe' 0
+		CreateShortCut '$SMPROGRAMS\The Sims Stories Starter Pack\The Sims Life Stories.lnk' '$INSTDIR\The Sims Life Stories\TSBin\SimsLS.exe' "" '$INSTDIR\The Sims Life Stories\TSBin\SimsLS.exe' 0
+		CreateShortCut '$Desktop\The Sims Life Stories.lnk' '$INSTDIR\The Sims Life Stories\TSBin\SimsLS.exe' "" '$INSTDIR\The Sims Life Stories\TSBin\SimsLS.exe' 0
 	${EndIf}
 	${If} ${SectionIsSelected} ${Section2}
 		CreateDirectory '$SMPROGRAMS\The Sims Stories Starter Pack\'
-		CreateShortCut '$SMPROGRAMS\The Sims Stories Starter Pack\The Sims Pet Stories.lnk' '$INSTDIR\PS\TSBin\SimsPS.exe' "" '$INSTDIR\LS\TSBin\SimsPS.exe' 0
-		CreateShortCut '$Desktop\The Sims Pet Stories.lnk' '$INSTDIR\PS\TSBin\SimsPS.exe' "" '$INSTDIR\PS\TSBin\SimsPS.exe' 0
+		CreateShortCut '$SMPROGRAMS\The Sims Stories Starter Pack\The Sims Pet Stories.lnk' '$INSTDIR\The Sims Pet Stories\TSBin\SimsPS.exe' "" '$INSTDIR\The Sims Pet Stories\TSBin\SimsPS.exe' 0
+		CreateShortCut '$Desktop\The Sims Pet Stories.lnk' '$INSTDIR\The Sims Pet Stories\TSBin\SimsPS.exe' "" '$INSTDIR\The Sims Pet Stories\TSBin\SimsPS.exe' 0
 	${EndIf}
 	${If} ${SectionIsSelected} ${Section3}
 		CreateDirectory '$SMPROGRAMS\The Sims Stories Starter Pack\'
-		CreateShortCut '$SMPROGRAMS\The Sims Stories Starter Pack\The Sims Castaway Stories.lnk' '$INSTDIR\CS\TSBin\SimsCS.exe' "" '$INSTDIR\CS\TSBin\SimsCS.exe' 0
-		CreateShortCut '$Desktop\The Sims Castaway Stories.lnk' '$INSTDIR\CS\TSBin\SimsCS.exe' "" '$INSTDIR\CS\TSBin\SimsCS.exe' 0
+		CreateShortCut '$SMPROGRAMS\The Sims Stories Starter Pack\The Sims Castaway Stories.lnk' '$INSTDIR\The Sims Castaway Stories\TSBin\SimsCS.exe' "" '$INSTDIR\The Sims Castaway Stories\TSBin\SimsCS.exe' 0
+		CreateShortCut '$Desktop\The Sims Castaway Stories.lnk' '$INSTDIR\The Sims Castaway Stories\TSBin\SimsCS.exe' "" '$INSTDIR\The Sims Castaway Stories\TSBin\SimsCS.exe' 0
 	${EndIf}
 SectionEnd 
 
@@ -257,14 +257,17 @@ Section "Uninstall" uninstall
 	RMDir /r $R4
 	DeleteRegKey HKLM32 "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\The Sims Life Stories"
 	DeleteRegKey HKLM32 "SOFTWARE\Electronic Arts\The Sims Life Stories"
+	DeleteRegKey HKLM32 "Software\Microsoft\Windows\CurrentVersion\App Paths\SimsLS.exe"
 	ReadRegStr $R4 HKLM32 "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\The Sims Pet Stories" "FolderName" 
 	RMDir /r $R4
 	DeleteRegKey HKLM32 "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\The Sims Pet Stories"
 	DeleteRegKey HKLM32 "SOFTWARE\Electronic Arts\The Sims Pet Stories"
+	DeleteRegKey HKLM32 "Software\Microsoft\Windows\CurrentVersion\App Paths\SimsPS.exe"
 	ReadRegStr $R4 HKLM32 "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\The Sims Castaway Stories" "FolderName" 
 	RMDir /r $R4
 	DeleteRegKey HKLM32 "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\The Sims Castaway Stories"
 	DeleteRegKey HKLM32 "SOFTWARE\Electronic Arts\The Sims Castaway Stories"
+		DeleteRegKey HKLM32 "Software\Microsoft\Windows\CurrentVersion\App Paths\SimsCS.exe"
 SectionEnd
 
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN

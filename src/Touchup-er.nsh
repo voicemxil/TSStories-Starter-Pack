@@ -17,6 +17,9 @@
 	WriteRegStr HKLM32 "Software\${gameKey}\1.0" "LanguageName" "English US"
 		Pop $3
 		DetailPrint "LanguageName Registry: $3"
+	WriteRegStr HKLM32 "Software\${gameKey}" "Locale" "en_US"
+		Pop $3
+		DetailPrint "Locale Registry: $3"
 	WriteRegStr HKLM32 "Software\${gameKey}" "Product GUID" "${GameGUID}"
 		Pop $3
 		DetailPrint "Product GUID Registry: $3"
@@ -26,6 +29,9 @@
 	WriteRegStr HKLM32 "Software\${gameKey}" "SwapSize" "0"
 		Pop $3
 		DetailPrint "SwapSize Registry: $3"
+	WriteRegStr HKLM32 "Software\Microsoft\Windows\CurrentVersion\App Paths\${gameEXE}" "Game Registry" "${gameKey}"
+	WriteRegDWORD HKLM32 "Software\Microsoft\Windows\CurrentVersion\App Paths\${gameEXE}" "Installed" "1"
+	WriteRegStr HKLM32 "Software\Microsoft\Windows\CurrentVersion\App Paths\${gameEXE}" "Path" "$INSTDIR\${gameTitle}"
 
 	WriteRegStr HKLM32 "Software\Microsoft\Windows\CurrentVersion\Uninstall\${gameTitle}" "DisplayName" "${gameTitle}"
 	WriteRegStr HKLM32 "Software\Microsoft\Windows\CurrentVersion\Uninstall\${gameTitle}" "FolderName" "$INSTDIR"
