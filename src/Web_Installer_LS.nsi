@@ -147,6 +147,7 @@ Section "Graphics Rules Maker" Section4
 	${EndIf}
 		Execwait $INSTDIR\temp\grm_install.exe
 		Delete $INSTDIR\temp\grm_install.exe
+		SetOutPath $INSTDIR
 		RMDir /r $INSTDIR\temp
 		Pop $0
 		DetailPrint "Cleanup result: $0"
@@ -158,7 +159,6 @@ Section /o "DXVK" Section5
 	inetc::get /POPUP "Preparing Vulkan Test..." "https://github.com/skeeto/vulkan-test/releases/download/1.0.2/vulkan_test.exe" "vulkan_test.exe"
 	ExecWait "$INSTDIR\temp\vulkan_test.exe"
 	Delete "$INSTDIR\temp\vulkan_test.exe"
-	RMDir "$INSTDIR\temp"
 	MessageBox MB_YESNO "DXVK requires Vulkan support. If the message box said it successfully created a Vulkan instance, click Yes. Otherwise, click NO." IDYES true IDNO false
 	true:
 		DetailPrint "Downloading DXVK $DXVKVER ..."
@@ -186,6 +186,7 @@ Section /o "DXVK" Section5
 		!insertmacro installDXVK "The Sims Castaway Stories"
 	${EndIf}
 		RMDir /r "$INSTDIR\temp\dxvk-2.1"
+		SetOutPath $INSTDIR
 		RMDir /r "$INSTDIR\temp"
 		Pop $0
 		DetailPrint "Cleanup result: $0"
@@ -211,7 +212,7 @@ SectionEnd
 	
 Section "Sim Shadow Fix" Section7
 	SetOutPath "$INSTDIR\temp"
-	inetc::get /POPUP "Downloading SimNopke's Shadow Fix" "https://github.com/voicemxil/TS2-Starter-Pack/raw/v11/components/simNopke-simShadowFix0.3reallyNotMisty.package" "simNopke-simShadowFix0.3reallyNotMisty.package"
+	inetc::get /POPUP "Downloading SimNopke's Shadow Fix" "https://github.com/voicemxil/TSStories-Starter-Pack/raw/v11/components/simNopke-simShadowFix0.3reallyNotMisty.package" "simNopke-simShadowFix0.3reallyNotMisty.package"
 	Pop $0
 	DetailPrint "Shadow Fix download status: $0"
 	${If} ${SectionIsSelected} ${Section1}
@@ -221,7 +222,7 @@ Section "Sim Shadow Fix" Section7
 		CopyFiles "simNopke-simShadowFix0.3reallyNotMisty.package" "$Documents\Electronic Arts\The Sims Pet Stories\Downloads\simNopke-simShadowFix0.3reallyNotMisty.package"
 	${EndIf}
 	${If} ${SectionIsSelected} ${Section3}
-		CopyFiles "simNopke-simShadowFix0.3reallyNotMisty.package" "$Documents\Electronic Arts\The Sims Pet Stories\Downloads\simNopke-simShadowFix0.3reallyNotMisty.package"
+		CopyFiles "simNopke-simShadowFix0.3reallyNotMisty.package" "$Documents\Electronic Arts\The Sims Castaway Stories\Downloads\simNopke-simShadowFix0.3reallyNotMisty.package"
 	${EndIf}
 	Delete "simNopke-simShadowFix0.3reallyNotMisty.package"
 	SetOutPath $INSTDIR
