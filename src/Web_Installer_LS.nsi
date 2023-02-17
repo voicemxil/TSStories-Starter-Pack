@@ -51,7 +51,7 @@ brandingText "osab Web Installer v11"
 
 !define MUI_LICENSEPAGE_TEXT_TOP "License Information:"
 
-!define MUI_WELCOMEFINISHPAGE_BITMAP "..\assets\v10.bmp"
+!define MUI_WELCOMEFINISHPAGE_BITMAP "..\assets\InstallerImage.bmp"
 !define MUI_FINISHPAGE_SHOWREADME "https://docs.google.com/document/d/1UT0HX3cO4xLft2KozGypU_N7ZcGQVr-54QD9asFsx5U/edit#heading=h.6jnaz4t6d3vx"
 !define MUI_FINISHPAGE_SHOWREADME_TEXT "Open the next step of the guide (Graphics Setup)?"
 !define MUI_FINISHPAGE_NOREBOOTSUPPORT
