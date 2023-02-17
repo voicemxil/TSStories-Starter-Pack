@@ -22,11 +22,12 @@ InstallDir "$PROGRAMFILES32\The Sims Stories Starter Pack"
 
 !macro installDXVK folderName
 		DetailPrint "Placing x32 d3d9.dll in TSBin..."
-		CopyFiles "$INSTDIR\temp\dxvk-2.1\x32\d3d9.dll" "$INSTDIR\${folderName}\TSBin\d3d9.dll"
+		SetOutPath $INSTDIR\temp
+		CopyFiles "dxvk-2.1\x32\d3d9.dll" "$INSTDIR\${folderName}\TSBin\d3d9.dll"
 		Pop $0
 		DetailPrint "File copy result: $0"
 		DetailPrint "Placing dxvk.conf in TSBin..."
-		CopyFiles "$INSTDIR\temp\dxvk.conf" "$INSTDIR\${folderName}\TSBin\dxvk.conf"
+		CopyFiles "dxvk.conf" "$INSTDIR\${folderName}\TSBin\dxvk.conf"
 		Pop $0
 		DetailPrint "File copy result: $0"
 !macroend
@@ -52,8 +53,6 @@ brandingText "osab Web Installer v11"
 !define MUI_LICENSEPAGE_TEXT_TOP "License Information:"
 
 !define MUI_WELCOMEFINISHPAGE_BITMAP "..\assets\InstallerImage.bmp"
-!define MUI_FINISHPAGE_SHOWREADME "https://docs.google.com/document/d/1UT0HX3cO4xLft2KozGypU_N7ZcGQVr-54QD9asFsx5U/edit#heading=h.6jnaz4t6d3vx"
-!define MUI_FINISHPAGE_SHOWREADME_TEXT "Open the next step of the guide (Graphics Setup)?"
 !define MUI_FINISHPAGE_NOREBOOTSUPPORT
 !define MUI_FINISHPAGE_LINK "TS2 Community Discord Server!"
 !define MUI_FINISHPAGE_LINK_LOCATION "https://discord.gg/invite/ts2-community-912700195249197086"
@@ -94,7 +93,6 @@ DetailPrint "Touching Up LS..."
 
 DetailPrint "Creating Downloads folder..."
 CreateDirectory "$Documents\Electronic Arts\The Sims Life Stories\Downloads" 
-ExecShell "open" "$INSTDIR"
 SectionEnd
 
 Section "TS Pet Stories Starter Pack" Section2
@@ -114,7 +112,6 @@ DetailPrint "Touching Up PS..."
 
 DetailPrint "Creating Downloads folder..."
 CreateDirectory "$Documents\Electronic Arts\The Sims Pet Stories\Downloads" 
-ExecShell "open" "$INSTDIR"
 SectionEnd
 	
 Section "TS Castaway Stories Starter Pack" Section3
@@ -135,7 +132,6 @@ DetailPrint "Touching Up CS..."
 
 DetailPrint "Creating Downloads folder..."
 CreateDirectory "$Documents\Electronic Arts\The Sims Castaway Stories\Downloads" 
-ExecShell "open" "$INSTDIR"
 SectionEnd
 
 Section "Graphics Rules Maker" Section4
@@ -158,7 +154,8 @@ SectionEnd
 
 Section /o "DXVK" Section5
 	CreateDirectory "$INSTDIR\temp"
-	inetc::get /POPUP "Preparing Vulkan Test..." "https://github.com/skeeto/vulkan-test/releases/download/1.0.2/vulkan_test.exe" "temp\vulkan_test.exe"
+	SetOutPath $INSTDIR\temp
+	inetc::get /POPUP "Preparing Vulkan Test..." "https://github.com/skeeto/vulkan-test/releases/download/1.0.2/vulkan_test.exe" "vulkan_test.exe"
 	ExecWait "$INSTDIR\temp\vulkan_test.exe"
 	Delete "$INSTDIR\temp\vulkan_test.exe"
 	RMDir "$INSTDIR\temp"
@@ -267,7 +264,11 @@ Section "Uninstall" uninstall
 	RMDir /r $R4
 	DeleteRegKey HKLM32 "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\The Sims Castaway Stories"
 	DeleteRegKey HKLM32 "SOFTWARE\Electronic Arts\The Sims Castaway Stories"
-		DeleteRegKey HKLM32 "Software\Microsoft\Windows\CurrentVersion\App Paths\SimsCS.exe"
+	DeleteRegKey HKLM32 "Software\Microsoft\Windows\CurrentVersion\App Paths\SimsCS.exe"
+	RMDIR /r "$SMPrograms\The Sims Stories Starter Pack"
+	Delete "$Desktop\The Sims Life Stories.lnk"
+	Delete "$Desktop\The Sims Pet Stories.lnk"
+	Delete "$Desktop\The Sims Castaway Stories.lnk"
 SectionEnd
 
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
