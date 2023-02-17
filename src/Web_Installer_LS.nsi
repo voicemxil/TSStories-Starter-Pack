@@ -88,7 +88,7 @@ AddSize 2500000
 
 # Touchup
 DetailPrint "Touching Up LS..."
-!insertmacro touchup "The Sims Life Stories" "Electronic Arts\The Sims Life Stories" {DA932D71-E52A-43D5-009E-395A1AEC1474} "The Sims Life Stories\TSBin\SimsLS.exe"
+!insertmacro touchup "The Sims Life Stories" "Electronic Arts\The Sims Life Stories" {DA932D71-E52A-43D5-009E-395A1AEC1474} "SimsLS.exe"
 
 !insertmacro setLanguage "Electronic Arts\The Sims Life Stories"
 
@@ -108,7 +108,7 @@ AddSize 2800000
 
 # Touchup
 DetailPrint "Touching Up PS..."
-!insertmacro touchup "The Sims Pet Stories" "Electronic Arts\The Sims Pet Stories" {DA932D71-E52A-43D5-009E-395A1AEC1474} "The Sims Pet Stories\TSBin\SimsPS.exe"
+!insertmacro touchup "The Sims Pet Stories" "Electronic Arts\The Sims Pet Stories" {DA932D71-E52A-43D5-009E-395A1AEC1474} "SimsPS.exe"
 
 !insertmacro setLanguage "Electronic Arts\The Sims Pet Stories"
 
@@ -129,7 +129,7 @@ CreateDirectory "$INSTDIR\temp"
 
 # Touchup
 DetailPrint "Touching Up CS..."
-!insertmacro touchup "The Sims Castaway Stories" "Electronic Arts\The Sims Castaway Stories" {DA932D71-E52A-43D5-009E-395A1AEC1474} "The Sims Castaway Stories\TSBin\SimsCS.exe"
+!insertmacro touchup "The Sims Castaway Stories" "Electronic Arts\The Sims Castaway Stories" {DA932D71-E52A-43D5-009E-395A1AEC1474} "SimsCS.exe"
 
 !insertmacro setLanguage "Electronic Arts\The Sims Castaway Stories"
 

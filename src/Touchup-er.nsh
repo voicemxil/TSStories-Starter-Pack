@@ -36,6 +36,6 @@
 	WriteRegStr HKLM32 "Software\Microsoft\Windows\CurrentVersion\Uninstall\${gameTitle}" "DisplayName" "${gameTitle}"
 	WriteRegStr HKLM32 "Software\Microsoft\Windows\CurrentVersion\Uninstall\${gameTitle}" "FolderName" "$INSTDIR"
 	WriteRegStr HKLM32 "Software\Microsoft\Windows\CurrentVersion\Uninstall\${gameTitle}" "UninstallString" "$\"$INSTDIR\Uninstall ${gameTitle} Starter Pack.exe$\""
-	WriteRegStr HKLM32 "Software\Microsoft\Windows\CurrentVersion\Uninstall\${gameTitle}" "DisplayIcon" "$\"$INSTDIR\${gameEXE}$\""
+	WriteRegStr HKLM32 "Software\Microsoft\Windows\CurrentVersion\Uninstall\${gameTitle}" "DisplayIcon" "$\"$INSTDIR\${gameTitle}\TSBin\${gameEXE}$\""
 	WriteRegStr HKLM32 "Software\Microsoft\Windows\CurrentVersion\Uninstall\${gameTitle}" "Publisher" "osab / EA"
 !macroend
