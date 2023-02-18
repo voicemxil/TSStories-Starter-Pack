@@ -237,9 +237,15 @@ Section "Start Menu/Desktop Shortcuts" Section8
 	${EndIf}
 SectionEnd 
 
+Section
+	WriteUninstaller "$INSTDIR\Uninstall The Sims Stories Starter Pack.exe"
+SectionEnd
+
 Section "un.Uninstall The Sims Life Stories" un.LS
 ReadRegStr $R4 HKLM32 "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\The Sims Life Stories" "FolderName" 
+	${If} $R4 = "$INSTDIR\The Sims Life Stories"
 	RMDir /r $R4
+    ${EndIf}
 	DeleteRegKey HKLM32 "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\The Sims Life Stories"
 	DeleteRegKey HKLM32 "SOFTWARE\Electronic Arts\The Sims Life Stories"
 	DeleteRegKey HKLM32 "Software\Microsoft\Windows\CurrentVersion\App Paths\SimsLS.exe"
@@ -248,7 +254,9 @@ SectionEnd
 
 Section "un.Uninstall The Sims Pet Stories" un.PS
 ReadRegStr $R4 HKLM32 "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\The Sims Pet Stories" "FolderName" 
+	${If} $R4 = "$INSTDIR\The Sims Pet Stories"
 	RMDir /r $R4
+    ${EndIf}
 	DeleteRegKey HKLM32 "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\The Sims Pet Stories"
 	DeleteRegKey HKLM32 "SOFTWARE\Electronic Arts\The Sims Pet Stories"
 	DeleteRegKey HKLM32 "Software\Microsoft\Windows\CurrentVersion\App Paths\SimsPS.exe"
@@ -257,7 +265,9 @@ SectionEnd
 
 Section "un.Uninstall The Sims Castaway Stories" un.CS
 ReadRegStr $R4 HKLM32 "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\The Sims Castaway Stories" "FolderName" 
+	${If} $R4 = "$INSTDIR\The Sims Castaway Stories"
 	RMDir /r $R4
+    ${EndIf}
 	DeleteRegKey HKLM32 "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\The Sims Castaway Stories"
 	DeleteRegKey HKLM32 "SOFTWARE\Electronic Arts\The Sims Castaway Stories"
 	DeleteRegKey HKLM32 "Software\Microsoft\Windows\CurrentVersion\App Paths\SimsCS.exe"

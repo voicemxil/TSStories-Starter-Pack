@@ -6,10 +6,10 @@
 	WriteRegStr HKLM32 "Software\${gameKey}" "DisplayName" "${gameTitle}"
 		Pop $3
 		DetailPrint "DisplayName Registry: $3"
-	WriteRegStr HKLM32 "Software\${gameKey}" "Folder" "$INSTDIR\${gameTitle} Starter Pack"
+	WriteRegStr HKLM32 "Software\${gameKey}" "Folder" "$INSTDIR\${gameTitle}"
 		Pop $3
 		DetailPrint "Folder Registry: $3"
-	WriteRegStr HKLM32 "Software\${gameKey}" "Install Dir" "$INSTDIR\${gameTitle} Starter Pack"
+	WriteRegStr HKLM32 "Software\${gameKey}" "Install Dir" "$INSTDIR\${gameTitle}"
 		Pop $3
 		DetailPrint "Install Dir Registry: $3"
 	WriteRegDWORD HKLM32 "Software\${gameKey}\1.0" "Language" "1"
@@ -32,7 +32,7 @@
 	WriteRegStr HKLM32 "Software\Microsoft\Windows\CurrentVersion\App Paths\${gameEXE}" "Path" "$INSTDIR\${gameTitle}"
 
 	WriteRegStr HKLM32 "Software\Microsoft\Windows\CurrentVersion\Uninstall\${gameTitle}" "DisplayName" "${gameTitle}"
-	WriteRegStr HKLM32 "Software\Microsoft\Windows\CurrentVersion\Uninstall\${gameTitle}" "FolderName" "$INSTDIR"
+	WriteRegStr HKLM32 "Software\Microsoft\Windows\CurrentVersion\Uninstall\${gameTitle}" "FolderName" "$INSTDIR\${gameTitle}"
 	WriteRegStr HKLM32 "Software\Microsoft\Windows\CurrentVersion\Uninstall\${gameTitle}" "UninstallString" "$\"$INSTDIR\Uninstall ${gameTitle} Starter Pack.exe$\""
 	WriteRegStr HKLM32 "Software\Microsoft\Windows\CurrentVersion\Uninstall\${gameTitle}" "DisplayIcon" "$\"$INSTDIR\${gameTitle}\TSBin\${gameEXE}$\""
 	WriteRegStr HKLM32 "Software\Microsoft\Windows\CurrentVersion\Uninstall\${gameTitle}" "Publisher" "osab / EA"
