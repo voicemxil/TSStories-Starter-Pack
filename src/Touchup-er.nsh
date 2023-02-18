@@ -1,4 +1,5 @@
 !macro touchup gameTitle gameKey gameGUID gameEXE
+	DetailPrint "Touching Up ${gameTitle}..."
 	WriteRegStr HKLM32 "Software\${gameKey}" "CacheSize" "4735180800"
 		Pop $3
 		DetailPrint "CacheSize Registry: $3"

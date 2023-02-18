@@ -7,19 +7,44 @@
 !include ".\Language-r.nsh"
 !include ".\Touchup-er.nsh"
 
-Var DXVKVER
-
-# Names the built installer
+########################### Installer SETUP
 Name "The Sims Stories Starter Pack"
-# Building to:
 OutFile "..\bin\Web Installer\TSStoriesStarterPack.WebInstaller-v11.exe"
-# Administrator Privileges 
 RequestExecutionLevel admin
-# Default Installation Directory
 InstallDir "$PROGRAMFILES32\The Sims Stories Starter Pack"
 
-!define LANGID '0x7'
+########################### MUI SETUP
+brandingText "osab Web Installer v11"
+!define MUI_ABORTWARNING
+!define MUI_HEADERIMAGE_BITMAP_STRETCH AspectFitHeight
+!define MUI_HEADERIMAGE_BITMAP "..\assets\header.bmp"
+!define MUI_ICON "..\assets\NewInstaller.ico"
+!define MUI_PAGE_HEADER_TEXT "TSS: Starter Pack - Web Installer"
+!define MUI_PAGE_HEADER_SUBTEXT "The Sims Stories repacked by osab!"
+!define MUI_WELCOMEPAGE_TITLE "osab's Sims Stories Starter Pack"
+!define MUI_WELCOMEPAGE_TEXT "Welcome to the Sims Stories Starter Pack Web Installer (v11). Please ensure you have downloaded the latest version from the GitHub! Helpful log messages will be shown in the 'More Details' box."
+!define MUI_UNCONFIRMPAGE_TEXT_TOP "WARNING: Before uninstalling, make sure the game folder you chose contains ONLY the uninstaller and game files. The game files MUST be in their own separate folder with no other essential data! I am not responsible for any data loss!"
+!define MUI_LICENSEPAGE_TEXT_TOP "License Information:"
+!define MUI_WELCOMEFINISHPAGE_BITMAP "..\assets\InstallerImage.bmp"
+!define MUI_FINISHPAGE_NOREBOOTSUPPORT
+!define MUI_FINISHPAGE_LINK "TS2 Community Discord Server!"
+!define MUI_FINISHPAGE_LINK_LOCATION "https://discord.gg/invite/ts2-community-912700195249197086"
+!insertmacro MUI_PAGE_WELCOME
+!insertmacro MUI_PAGE_LICENSE "..\LICENSE.txt"
+!insertmacro MUI_PAGE_COMPONENTS
+!insertmacro MUI_PAGE_DIRECTORY
+!insertmacro MUI_PAGE_INSTFILES
+!insertmacro MUI_PAGE_FINISH
+!insertmacro MUI_UNPAGE_WELCOME
+!insertmacro MUI_UNPAGE_DIRECTORY
+!insertmacro MUI_UNPAGE_COMPONENTS
+!insertmacro MUI_UNPAGE_CONFIRM
+!insertmacro MUI_UNPAGE_INSTFILES
+!insertmacro MUI_UNPAGE_FINISH
+!insertmacro MUI_LANGUAGE "English"
+################################ Begin Installation
 
+Var DXVKVER
 !macro installDXVK folderName
 		DetailPrint "Placing x32 d3d9.dll in TSBin..."
 		SetOutPath $INSTDIR\temp
@@ -35,42 +60,7 @@ InstallDir "$PROGRAMFILES32\The Sims Stories Starter Pack"
 Function .OnInit
 	Dialer::AttemptConnect
 	StrCpy $DXVKVER "2.1"
-	System::Call 'kernel32::GetSystemDefaultLangID() i .r7'  
 FunctionEnd
-
-###########################
-brandingText "osab Web Installer v11"
-!define MUI_ABORTWARNING
-!define MUI_HEADERIMAGE_BITMAP_STRETCH AspectFitHeight
-!define MUI_HEADERIMAGE_BITMAP "..\assets\header.bmp"
-!define MUI_ICON "..\assets\NewInstaller.ico"
-!define MUI_PAGE_HEADER_TEXT "TSS: Starter Pack - Web Installer"
-!define MUI_PAGE_HEADER_SUBTEXT "The Sims Stories repacked by osab!"
-
-!define MUI_WELCOMEPAGE_TITLE "osab's Sims Stories Starter Pack"
-!define MUI_WELCOMEPAGE_TEXT "Welcome to the Sims Stories Starter Pack Web Installer (v11). Please ensure you have downloaded the latest version from the GitHub! Helpful log messages will be shown in the 'More Details' box."
-
-!define MUI_LICENSEPAGE_TEXT_TOP "License Information:"
-
-!define MUI_WELCOMEFINISHPAGE_BITMAP "..\assets\InstallerImage.bmp"
-!define MUI_FINISHPAGE_NOREBOOTSUPPORT
-!define MUI_FINISHPAGE_LINK "TS2 Community Discord Server!"
-!define MUI_FINISHPAGE_LINK_LOCATION "https://discord.gg/invite/ts2-community-912700195249197086"
-
-!insertmacro MUI_PAGE_WELCOME
-!insertmacro MUI_PAGE_LICENSE "..\LICENSE.txt"
-!insertmacro MUI_PAGE_COMPONENTS
-!insertmacro MUI_PAGE_DIRECTORY
-!insertmacro MUI_PAGE_INSTFILES
-!insertmacro MUI_PAGE_FINISH
-
-!insertmacro MUI_UNPAGE_WELCOME
-!insertmacro MUI_UNPAGE_COMPONENTS
-!insertmacro MUI_UNPAGE_INSTFILES
-!insertmacro MUI_UNPAGE_FINISH
-
-!insertmacro MUI_LANGUAGE "English"
-################################
 
 Section
 	WriteUninstaller "$INSTDIR\Uninstall The Sims Stories Starter Pack.exe"	
@@ -86,7 +76,6 @@ AddSize 2500000
 !insertmacro downloadPack "The Sims Life Stories" https://www.github.com/mintalien/The-Puppets-2-Definitive-Edition/releases/download/v11/SFX_LifeStories.v11.exe SFX_LifeStories.exe "77263efcea8d73d38c4284815ea88f971c534f5d3569cd5a4cdce3fe534b4696"
 
 # Touchup
-DetailPrint "Touching Up LS..."
 !insertmacro touchup "The Sims Life Stories" "Electronic Arts\The Sims Life Stories" "{DA932D71-E52A-43D5-009E-395A1AEC1474}" "SimsLS.exe"
 
 !insertmacro setLanguage "Electronic Arts\The Sims Life Stories"
@@ -248,28 +237,38 @@ Section "Start Menu/Desktop Shortcuts" Section8
 	${EndIf}
 SectionEnd 
 
-Section "Uninstall" uninstall
-	SetRegView 32
-	Delete "Uninstall The Sims Stories Starter Pack.exe"
-	ReadRegStr $R4 HKLM32 "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\The Sims Life Stories" "FolderName" 
+Section "un.Uninstall The Sims Life Stories" un.LS
+ReadRegStr $R4 HKLM32 "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\The Sims Life Stories" "FolderName" 
 	RMDir /r $R4
 	DeleteRegKey HKLM32 "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\The Sims Life Stories"
 	DeleteRegKey HKLM32 "SOFTWARE\Electronic Arts\The Sims Life Stories"
 	DeleteRegKey HKLM32 "Software\Microsoft\Windows\CurrentVersion\App Paths\SimsLS.exe"
-	ReadRegStr $R4 HKLM32 "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\The Sims Pet Stories" "FolderName" 
+	Delete "$Desktop\The Sims Life Stories.lnk"
+SectionEnd
+
+Section "un.Uninstall The Sims Pet Stories" un.PS
+ReadRegStr $R4 HKLM32 "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\The Sims Pet Stories" "FolderName" 
 	RMDir /r $R4
 	DeleteRegKey HKLM32 "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\The Sims Pet Stories"
 	DeleteRegKey HKLM32 "SOFTWARE\Electronic Arts\The Sims Pet Stories"
 	DeleteRegKey HKLM32 "Software\Microsoft\Windows\CurrentVersion\App Paths\SimsPS.exe"
-	ReadRegStr $R4 HKLM32 "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\The Sims Castaway Stories" "FolderName" 
+	Delete "$Desktop\The Sims Pet Stories.lnk"
+SectionEnd
+
+Section "un.Uninstall The Sims Castaway Stories" un.CS
+ReadRegStr $R4 HKLM32 "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\The Sims Castaway Stories" "FolderName" 
 	RMDir /r $R4
 	DeleteRegKey HKLM32 "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\The Sims Castaway Stories"
 	DeleteRegKey HKLM32 "SOFTWARE\Electronic Arts\The Sims Castaway Stories"
 	DeleteRegKey HKLM32 "Software\Microsoft\Windows\CurrentVersion\App Paths\SimsCS.exe"
-	RMDIR /r "$SMPrograms\The Sims Stories Starter Pack"
-	Delete "$Desktop\The Sims Life Stories.lnk"
-	Delete "$Desktop\The Sims Pet Stories.lnk"
 	Delete "$Desktop\The Sims Castaway Stories.lnk"
+SectionEnd
+
+Section "un." uninstall
+	SetRegView 32
+	Delete "Uninstall The Sims Stories Starter Pack.exe"
+	RMDIR /r "$SMPrograms\The Sims Stories Starter Pack"
+	RMDIR $INSTDIR
 SectionEnd
 
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN

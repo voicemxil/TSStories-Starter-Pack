@@ -1,5 +1,7 @@
 !include LogicLib.nsh
 !macro setLanguage gameKey
+	SetRegView 32
+	System::Call 'kernel32::GetSystemDefaultLangID() i .r7'  
 	${If} $7 == 1033 ; English
 		WriteRegDWORD HKLM32 "Software\${gameKey}\1.0" "Language" "1"
 		WriteRegStr HKLM32 "Software\${gameKey}\1.0" "LanguageName" "English US"
