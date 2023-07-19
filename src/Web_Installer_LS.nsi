@@ -61,7 +61,7 @@ brandingText "osab Web Installer v13"
 Var DXVKVER
 !macro installDXVK folderName
 		DetailPrint "Placing x32 d3d9.dll in TSBin..."
-		SetOutPath $INSTDIR\temp
+		SetOutPath "$INSTDIR\temp"
 		CopyFiles "$INSTDIR\temp\d3d9.dll" "$INSTDIR\${folderName}\TSBin\d3d9.dll"
 		Pop $0
 		DetailPrint "File copy result: $0"
@@ -76,15 +76,19 @@ Function .OnInit
 	StrCpy $DXVKVER "2.1"
 FunctionEnd
 
+Section
+	CreateDirectory "$INSTDIR\temp"
+SectionEnd
+
 SectionGroup /e "The Sims Stories Starter Pack"
 Section "The Sims Life Stories" Section1
 
-SetOutPath "$INSTDIR\The Sims Life Stories"
+SetOutPath "$INSTDIR"
 SetOverwrite on
 InitPluginsDir
 AddSize 2500000
 
-!insertmacro downloadPack "The Sims Life Stories" https://www.github.com/mintalien/The-Puppets-2-Definitive-Edition/releases/download/v11/SFX_LifeStories.v11.exe SFX_LifeStories.exe "77263efcea8d73d38c4284815ea88f971c534f5d3569cd5a4cdce3fe534b4696"
+!insertmacro downloadPack "The Sims Life Stories" "https://www.github.com/mintalien/The-Puppets-2-Definitive-Edition/releases/download/v11/SFX_LifeStories.v11.exe" "$INSTDIR\temp\SFX_LifeStories.exe" "77263efcea8d73d38c4284815ea88f971c534f5d3569cd5a4cdce3fe534b4696"
 
 # Touchup
 !insertmacro touchup "The Sims Life Stories" "Electronic Arts\The Sims Life Stories" "{DA932D71-E52A-43D5-009E-395A1AEC1474}" "SimsLS.exe"
@@ -97,12 +101,12 @@ SectionEnd
 
 Section "The Sims Pet Stories" Section2
 
-SetOutPath "$INSTDIR\The Sims Pet Stories"
+SetOutPath "$INSTDIR"
 SetOverwrite on
 InitPluginsDir
 AddSize 2800000
 
-!insertmacro downloadPack "The Sims Pet Stories" https://www.github.com/mintalien/The-Puppets-2-Definitive-Edition/releases/download/v11/SFX_PetStories.v11.exe SFX_PetStories.exe "8b42b1c985b5fe04d94de2c32e30615397bc5214c4c68f7c34ab6cf7df6bd9d5"
+!insertmacro downloadPack "The Sims Pet Stories" "https://www.github.com/mintalien/The-Puppets-2-Definitive-Edition/releases/download/v11/SFX_PetStories.v11.exe" "$INSTDIR\temp\SFX_PetStories.exe" "8b42b1c985b5fe04d94de2c32e30615397bc5214c4c68f7c34ab6cf7df6bd9d5"
 
 # Touchup
 DetailPrint "Touching Up PS..."
@@ -116,12 +120,12 @@ SectionEnd
 	
 Section "The Sims Castaway Stories" Section3
 
-SetOutPath "$INSTDIR\The Sims Castaway Stories"
+SetOutPath "$INSTDIR"
 SetOverwrite on
 InitPluginsDir
 AddSize 3000000
 
-!insertmacro downloadPack "The Sims Castaway Stories" https://www.github.com/mintalien/The-Puppets-2-Definitive-Edition/releases/download/v11/SFX_CastawayStories.v11.exe SFX_CastawayStories.exe "2E519CF30E252710CBB93CA8F2EA4BE1FCD5CA0365BF999D40D434A6B657E8DA"
+!insertmacro downloadPack "The Sims Castaway Stories" "https://www.github.com/mintalien/The-Puppets-2-Definitive-Edition/releases/download/v11/SFX_CastawayStories.v11.exe" "$INSTDIR\temp\SFX_CastawayStories.exe" "2E519CF30E252710CBB93CA8F2EA4BE1FCD5CA0365BF999D40D434A6B657E8DA"
 
 # Touchup
 DetailPrint "Touching Up CS..."
@@ -214,7 +218,7 @@ SectionGroupEnd
 	
 Section "Visual C++ Redist" Section7
 	CreateDirectory "$INSTDIR\temp"	
-	NScurl::http GET "https://aka.ms/vs/17/release/vc_redist.x86.exe" "temp\vc_redist.x86.exe" /RESUME /INSIST /CANCEL /END
+	NScurl::http GET "https://aka.ms/vs/17/release/vc_redist.x86.exe" "$INSTDIR\temp\vc_redist.x86.exe" /RESUME /INSIST /CANCEL /END
 	Pop $0
 	DetailPrint "VC Redist download status: $0"
 	ExecWait "$INSTDIR\temp\vc_redist.x86.exe /q /norestart"
