@@ -1,5 +1,5 @@
 ﻿Unicode True
-Target amd64-unicode
+Target x86-unicode
 
 ;Include header files
 !define MUI_WELCOMEFINISHPAGE_BITMAP "..\assets\InstallerImage.bmp"
@@ -13,7 +13,7 @@ Target amd64-unicode
 
 ########################### Installer SETUP
 Name "The Sims Stories Starter Pack"
-OutFile "..\bin\Web Installer\TSStoriesStarterPack-WebInstaller.x64.exe"
+OutFile "..\bin\Web Installer\TSStoriesStarterPack-WebInstaller.x32.exe"
 RequestExecutionLevel admin
 InstallDir "$PROGRAMFILES32\The Sims Stories Starter Pack"
 SetCompressor LZMA
