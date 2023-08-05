@@ -17,7 +17,6 @@ OutFile "..\bin\Web Installer\TSStoriesStarterPack-WebInstaller.x64.exe"
 RequestExecutionLevel admin
 InstallDir "$PROGRAMFILES32\The Sims Stories Starter Pack"
 SetCompressor LZMA
-ShowInstDetails show
 ManifestDPIAware True
 VIProductVersion 13.0.0.0
 VIAddVersionKey "CompanyName" "osab"
@@ -144,15 +143,16 @@ SectionGroupEnd
 
 SectionGroup "Graphics Fixes/Tweaks"
 Section "Graphics Rules Maker" Section4
+
 	SetOutPath "$INSTDIR\temp"
 	${If} ${RunningX64}
 		DetailPrint "Downloading Graphics Rules Maker..."
-		NScurl::http GET "https://raw.githubusercontent.com/voicemxil/TSStories-Starter-Pack/v13/components/graphicsrulesmaker-2.0.0-64bit.exe" "$INSTDIR\temp\grm_install.exe" /RESUME /INSIST /CANCEL /END
+		NScurl::http GET "https://raw.githubusercontent.com/voicemxil/TSStories-Starter-Pack/v13/components/GraphicsRulesMaker-2.3.0-win64.exe" "$INSTDIR\temp\grm_install.exe" /RESUME /INSIST /CANCEL /END
 		Pop $0 # return value = exit code, "OK" means OK
 		DetailPrint "GRM download status: $0. Executing installer..." 
 	${Else}
 		DetailPrint "Downloading Graphics Rules Maker.."
-		NScurl::http GET "https://raw.githubusercontent.com/voicemxil/TSStories-Starter-Pack/v13/components/graphicsrulesmaker-2.0.0-32bit.exe" "$INSTDIR\temp\grm_install.exe" /RESUME /INSIST /CANCEL /END
+		NScurl::http GET "https://raw.githubusercontent.com/voicemxil/TSStories-Starter-Pack/v13/components/GraphicsRulesMaker-2.3.0-win32.exe" "$INSTDIR\temp\grm_install.exe" /RESUME /INSIST /CANCEL /END
 		Pop $0 # return value = exit code, "OK" means OK
 		DetailPrint "GRM download status: $0. Executing installer..." 
 	${EndIf}
@@ -179,7 +179,22 @@ Section "Sim Shadow Fix" Section5
 	RMDir "$INSTDIR\temp"
 SectionEnd
 
-Section /o "DXVK" Section6
+Section "LD Bright CAS Fix" Section6	
+	DetailPrint "Donwloading Bright CAS Fix..."
+	SetOutPath "$INSTDIR\temp"
+	NScurl::http GET "https://github.com/voicemxil/TS2-Starter-Pack/raw/v13/components/ld_BrightCASFix.package" "$INSTDIR\temp\ld_BrightCASFix.package" /BACKGROUND /END
+	${If} ${SectionIsSelected} ${Section1}
+		CopyFiles "ld_BrightCASFix.package" "$Documents\Electronic Arts\The Sims Life Stories\Downloads\ld_BrightCASFix.package"
+	${EndIf}
+	${If} ${SectionIsSelected} ${Section2}
+		CopyFiles "ld_BrightCASFix.package" "$Documents\Electronic Arts\The Sims Pet Stories\Downloads\ld_BrightCASFix.package"
+	${EndIf}
+	${If} ${SectionIsSelected} ${Section3}
+		CopyFiles "ld_BrightCASFix.package" "$Documents\Electronic Arts\The Sims Castaway Stories\Downloads\ld_BrightCASFix.package"
+	${EndIf}
+SectionEnd
+
+Section /o "DXVK" Section7
 	CreateDirectory "$INSTDIR\temp"
 	SetOutPath $INSTDIR\temp
 	NScurl::http GET "https://github.com/skeeto/vulkan-test/releases/download/1.0.2/vulkan_test.exe" "vulkan_test.exe" /RESUME /INSIST /CANCEL /END
@@ -216,7 +231,7 @@ Section /o "DXVK" Section6
 SectionEnd
 SectionGroupEnd
 	
-Section "Visual C++ Redist" Section7
+Section "Visual C++ Redist" Section8
 	CreateDirectory "$INSTDIR\temp"	
 	NScurl::http GET "https://aka.ms/vs/17/release/vc_redist.x86.exe" "$INSTDIR\temp\vc_redist.x86.exe" /RESUME /INSIST /CANCEL /END
 	Pop $0
@@ -228,7 +243,7 @@ Section "Visual C++ Redist" Section7
 		DetailPrint "Cleanup result: $0"	
 SectionEnd
 
-Section "Start Menu/Desktop Shortcuts" Section8
+Section "Start Menu/Desktop Shortcuts" Section9
 	SetShellVarContext all
 	${If} ${SectionIsSelected} ${Section1}
 		CreateDirectory '$SMPROGRAMS\The Sims Stories Starter Pack\'
@@ -296,9 +311,10 @@ SectionEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${Section2} "The Sims Pet Stories"
   !insertmacro MUI_DESCRIPTION_TEXT ${Section3} "The Sims Castaway Stories"
   !insertmacro MUI_DESCRIPTION_TEXT ${Section4} "Installs Graphics Rules Maker 2.0.0."
-  !insertmacro MUI_DESCRIPTION_TEXT ${Section5} "Installs SimNopke's Sim Shadow Fix to your downloads folder. *Don't Use With DXVK*." 
-  !insertmacro MUI_DESCRIPTION_TEXT ${Section6} "Installs DXVK $DXVKVER. (Not recommended for beginners.)"
-  !insertmacro MUI_DESCRIPTION_TEXT ${Section7} "Installs Visual C++ Redist (x86) if not already installed."
-  !insertmacro MUI_DESCRIPTION_TEXT ${Section8} "Create a shortuct to launch the game in your Start Menu/Desktop."
+  !insertmacro MUI_DESCRIPTION_TEXT ${Section5} "Installs SimNopke's Sim Shadow Fix to your downloads folder. *Don't Use With DXVK*."
+  !insertmacro MUI_DESCRIPTION_TEXT ${Section6} "Installs Lazy Duchess's Bright CAS Fix to your install folder."
+  !insertmacro MUI_DESCRIPTION_TEXT ${Section7} "Installs DXVK $DXVKVER. (Not recommended for beginners.)"
+  !insertmacro MUI_DESCRIPTION_TEXT ${Section8} "Installs Visual C++ Redist (x86) if not already installed."
+  !insertmacro MUI_DESCRIPTION_TEXT ${Section9} "Create a shortuct to launch the game in your Start Menu/Desktop."
 
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
