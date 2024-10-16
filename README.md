@@ -2,7 +2,7 @@
  
 ### Download & setup resources for The Sims Stories series - Life Stories, Pet Stories, and Castaway Stories.
 
-[![Discord](https://img.shields.io/discord/912700195249197086?color=fa807a&label=osab%27s%20TS2%20Community%20Discord%20Server&logo=Discord&logoColor=white)](https://discord.com/servers/ts2-community-912700195249197086)  ![GitHub all releases](https://img.shields.io/github/downloads/voicemxil/TSStories-Starter-Pack/total)
+[![Discord](https://img.shields.io/discord/912700195249197086?color=fa807a&label=osab%27s%20TS2%20Community%20Discord%20Server&logo=Discord&logoColor=white)](https://discord.com/servers/ts2community)  ![GitHub all releases](https://img.shields.io/github/downloads/voicemxil/TSStories-Starter-Pack/total)
 
 The Sims Stories Starter Pack is an all-in-one source for obtaining, installing, and optimizing The Sims Stories series on modern hardware. 
 
